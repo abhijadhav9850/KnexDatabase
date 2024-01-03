@@ -215,27 +215,30 @@ app.post("/Mobile_No/Send_OTP", async (req, res) => {
             const paddedOTP = otp.toString().padStart(4, '0');
             return paddedOTP;
         }
-        const otpvalue = generateOTP();
+        const otpvalue = 2244
         usersOtp.push(otpvalue);
-        const smsData = {
-            variables_values: otpvalue? otpvalue: "2224",
-            route: "otp",
-            numbers: req.body.Mobile_No,
-        };
-        unirest
-            .post(apiUrl)
-            .headers({
-                authorization: apiKey,
-            })
-            .form(smsData)
-            .end((response) => {
-                if (response.error) {
-                    console.error("Error:", response.error);
-                    res.status(500).json({ error: "Internal Server Error" });
-                } else {
-                    res.status(200).json({ otpvalue: otpvalue, response: response.body });
-                }
-            });
+        // const smsData = {
+        //     variables_values: otpvalue? otpvalue: "2224",
+        //     route: "otp",
+        //     numbers: req.body.Mobile_No,
+        // };
+        // unirest
+        //     .post(apiUrl)
+        //     .headers({
+        //         authorization: apiKey,
+        //     })
+        //     .form(smsData)
+        //     .end((response) => {
+        //         if (response.error) {
+        //             console.error("Error:", response.error);
+        //             res.status(500).json({ error: "Internal Server Error" });
+        //         } else {
+        //             res.status(200).json({ otpvalue: otpvalue, response: response.body });
+        //         }
+        //     });
+        // 
+            res.status(200).json({ otpvalue: otpvalue, response: "YOUR OTP" });
+
     } catch (error) {
         console.log("Unable to Send OTP:", error);
         res.status(500).json({ success: false, "message": "Failed to send OTP" });
@@ -269,7 +272,8 @@ app.post("/getData", async (req, res) => {
         users.push(...getUsers);
 
         let orders = await pg.select('id', 'bhakri', 'pithla', 'test', 'totalprice', 'register_id','status','datetime').from('user_order');
-        order_List.push(...orders);
+        order_List.push(orders);
+        console.log(order_List);
 
         let findUser = users.find(e => e.mobileno == req.body.Mobile_No);
         let ordersList = order_List.filter(e => e.register_id === findUser.register_id);
