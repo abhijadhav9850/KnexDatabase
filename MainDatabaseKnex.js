@@ -31,7 +31,7 @@ let UserData = []
 let OrderData = []
 let OrderData1 = []
 let usersOtp = []
-let otpvalue;
+let otpvalue = 2244
 
 //login with jwt
 
@@ -249,6 +249,8 @@ app.post("/Mobile_No/Send_OTP", async (req, res) => {
 //POST API FOR CHECK ENTER OTP IS RIGHT OR WRONG!
 app.post("/OTP/GetOTP", async (req, res) => {
     try {
+        console.log(req.body);
+        console.log(otpvalue);
         // let userOtp = req.body.otp.toString();
         // console.log(usersOtp);
         // const isValidOTP = usersOtp.includes(userOtp);
