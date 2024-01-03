@@ -206,16 +206,16 @@ app.post("/OrderData/Details", async (req, res) => {
 //POST API FOR SEND OTP FOR USER!
 app.post("/Mobile_No/Send_OTP", async (req, res) => {
     try {
-        const apiKey = "IkHy8BjOpAJ8ELcVuqbMRqkBVwEQKub5mgrCGacphfH1hvF9DmB5uU9kVaKs";
-        const apiUrl = "https://www.fast2sms.com/dev/bulkV2";
+        // const apiKey = "IkHy8BjOpAJ8ELcVuqbMRqkBVwEQKub5mgrCGacphfH1hvF9DmB5uU9kVaKs";
+        // const apiUrl = "https://www.fast2sms.com/dev/bulkV2";
 
-        function generateOTP() {
-            const timestamp = Date.now(); // Get current timestamp
-            const uniqueNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 4-digit number
-            const otp = (timestamp + uniqueNumber) % 10000; // Ensure a 4-digit number
-            const paddedOTP = otp.toString().padStart(4, '0');
-            return paddedOTP;
-        }
+        // function generateOTP() {
+        //     const timestamp = Date.now(); // Get current timestamp
+        //     const uniqueNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 4-digit number
+        //     const otp = (timestamp + uniqueNumber) % 10000; // Ensure a 4-digit number
+        //     const paddedOTP = otp.toString().padStart(4, '0');
+        //     return paddedOTP;
+        // }
         otpvalue = 2244
         // usersOtp.push(otpvalue);
         // const smsData = {
@@ -238,7 +238,7 @@ app.post("/Mobile_No/Send_OTP", async (req, res) => {
         //         }
         //     });
         // 
-            res.status(200).json({ otpvalue: otpvalue, response: "YOUR OTP" });
+            res.status(200).json({ "otpvalue": otpvalue, "response": "YOUR OTP" });
 
     } catch (error) {
         console.log("Unable to Send OTP:", error);
