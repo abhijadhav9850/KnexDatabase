@@ -31,7 +31,7 @@ let UserData = []
 let OrderData = []
 let OrderData1 = []
 let usersOtp = []
-let otpvalue = 2244
+let otpvalue;
 
 //login with jwt
 
@@ -206,16 +206,16 @@ app.post("/OrderData/Details", async (req, res) => {
 //POST API FOR SEND OTP FOR USER!
 app.post("/Mobile_No/Send_OTP", async (req, res) => {
     try {
-        // const apiKey = "IkHy8BjOpAJ8ELcVuqbMRqkBVwEQKub5mgrCGacphfH1hvF9DmB5uU9kVaKs";
-        // const apiUrl = "https://www.fast2sms.com/dev/bulkV2";
+        const apiKey = "IkHy8BjOpAJ8ELcVuqbMRqkBVwEQKub5mgrCGacphfH1hvF9DmB5uU9kVaKs";
+        const apiUrl = "https://www.fast2sms.com/dev/bulkV2";
 
-        // function generateOTP() {
-        //     const timestamp = Date.now(); // Get current timestamp
-        //     const uniqueNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 4-digit number
-        //     const otp = (timestamp + uniqueNumber) % 10000; // Ensure a 4-digit number
-        //     const paddedOTP = otp.toString().padStart(4, '0');
-        //     return paddedOTP;
-        // }
+        function generateOTP() {
+            const timestamp = Date.now(); // Get current timestamp
+            const uniqueNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 4-digit number
+            const otp = (timestamp + uniqueNumber) % 10000; // Ensure a 4-digit number
+            const paddedOTP = otp.toString().padStart(4, '0');
+            return paddedOTP;
+        }
         otpvalue = 2244
         // usersOtp.push(otpvalue);
         // const smsData = {
@@ -238,7 +238,7 @@ app.post("/Mobile_No/Send_OTP", async (req, res) => {
         //         }
         //     });
         // 
-            res.status(200).json({ "otpvalue": otpvalue, "response": "YOUR OTP" });
+            res.status(200).json({ otpvalue: otpvalue, response: "YOUR OTP" });
 
     } catch (error) {
         console.log("Unable to Send OTP:", error);
@@ -249,8 +249,6 @@ app.post("/Mobile_No/Send_OTP", async (req, res) => {
 //POST API FOR CHECK ENTER OTP IS RIGHT OR WRONG!
 app.post("/OTP/GetOTP", async (req, res) => {
     try {
-        console.log(req.body);
-        console.log(otpvalue);
         // let userOtp = req.body.otp.toString();
         // console.log(usersOtp);
         // const isValidOTP = usersOtp.includes(userOtp);
@@ -276,10 +274,10 @@ app.post("/getData", async (req, res) => {
         users.push(...getUsers);
 
         let orders = await pg.select('id', 'bhakri', 'pithla', 'test', 'totalprice', 'register_id','status','datetime').from('user_order');
-        order_List.push(...orders);
-        
-        let findUser = users.find(e => e.mobileno == req.body.Mobile_No);
+        order_List.push(orders);
+        console.log(order_List);
 
+        let findUser = users.find(e => e.mobileno == req.body.Mobile_No);
         let ordersList = order_List.filter(e => e.register_id === findUser.register_id);
         
         res.status(200).json({ "Message": "successful", "Result": ordersList });
